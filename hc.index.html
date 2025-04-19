@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Hena's Collection</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+
+    :root {
+
+      --bg: #2e2e2e;
+
+      --text: #ffffff;
+
+      --card: #444;
+
+      --accent: #c71585;
+
+      --highlight: #d87093;
+
+    }
+
+
+
+    body {
+
+      margin: 0;
+
+      font-family: 'Poppins', sans-serif;
+
+      background: var(--bg);
+
+      color: var(--text);
+
+      transition: all 0.3s ease;
+
+    }
+
+
+
+    header, footer {
+
+      background: linear-gradient(90deg, var(--accent), var(--highlight));
+
+      color: white;
+
+      text-align: center;
+
+      padding: 1.5rem;
+
+      font-size: 1.2rem;
+
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    }
+
+
+
+    nav {
+
+      background: var(--highlight);
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 1rem;
+
+      padding: 1rem;
+
+      /* REMOVED THESE TWO LINES TO FIX STICKY BEHAVIOR */
+
+      /* position: sticky; */
+
+      /* top: 0; */
+
+      z-index: 100;
+
+    }
+
+
+
+    /* EVERYTHING BELOW THIS POINT REMAINS COMPLETELY UNCHANGED */
+
+    nav a {
+
+      color: white;
+
+      text-decoration: none;
+
+      font-weight: 600;
+
+      font-size: 1rem;
+
+      transition: transform 0.3s;
+
+    }
+
+
+
+    nav a:hover {
+
+      transform: translateY(-3px);
+
+    }
+
+
+
+    .toggle-mode {
+
+      position: fixed;
+
+      top: 10px;
+
+      right: 10px;
+
+      background: var(--accent);
+
+      color: white;
+
+      padding: 0.5rem 1rem;
+
+      border: none;
+
+      border-radius: 20px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+      z-index: 101;
+
+    }
+
+
+
+    main {
+
+      padding: 1rem;
+
+      max-width: 1200px;
+
+      margin: auto;
+
+    }
+
+
+
+    #search-bar {
+
+      width: 100%;
+
+      padding: 0.8rem;
+
+      margin: 1rem 0;
+
+      font-size: 1rem;
+
+      border: 2px solid var(--highlight);
+
+      border-radius: 10px;
+
+      background: white;
+
+    }
+
+
+
+    .products {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 1rem;
+
+    }
+
+
+
+    .product {
+
+      background: var(--card);
+
+      border-radius: 15px;
+
+      padding: 1rem;
+
+      text-align: center;
+
+      box-shadow: 0 6px 10px rgba(0,0,0,0.05);
+
+      transition: transform 0.3s;
+
+      position: relative;
+
+    }
+
+
+
+    .product:hover {
+
+      transform: translateY(-5px);
+
+    }
+
+
+
+    .product img {
+
+      width: 100%;
+
+      height: 160px;
+
+      object-fit: cover;
+
+      border-radius: 10px;
+
+      transition: transform 0.3s;
+
+    }
+
+
+
+    .product:hover img {
+
+      transform: scale(1.05);
+
+    }
+
+
+
+    .product h3 { 
+
+      margin: 0.7rem 0; 
+
+      font-size: 1.1rem; 
+
+      min-height: 2.5rem;
+
+    }
+
+    
+
+    .product p { 
+
+      margin: 0.3rem 0; 
+
+      font-weight: 600;
+
+    }
+
+
+
+    .product button {
+
+      padding: 0.6rem 1.2rem;
+
+      background: var(--accent);
+
+      color: white;
+
+      font-weight: bold;
+
+      border: none;
+
+      border-radius: 30px;
+
+      cursor: pointer;
+
+      transition: background 0.3s;
+
+      width: 100%;
+
+    }
+
+
+
+    .product button:hover {
+
+      background: var(--highlight);
+
+    }
+
+
+
+    .category-title {
+
+      margin: 2rem 0 1rem;
+
+      font-size: 1.6rem;
+
+      font-weight: 600;
+
+      color: var(--accent);
+
+      text-shadow: 1px 1px 0 white;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+    }
+
+
+
+    #cart-section {
+
+      margin-top: 3rem;
+
+      padding: 1rem;
+
+      background: var(--card);
+
+      border-radius: 15px;
+
+    }
+
+
+
+    .cart-item {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      padding: 0.8rem 0;
+
+      border-bottom: 1px dashed #ccc;
+
+    }
+
+
+
+    .qty-control {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+    }
+
+
+
+    .qty-control button {
+
+      background: var(--accent);
+
+      color: white;
+
+      border: none;
+
+      padding: 0.4rem 0.7rem;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+    }
+
+
+
+    .cart-total {
+
+      text-align: right;
+
+      font-weight: bold;
+
+      font-size: 1.2rem;
+
+      margin-top: 1rem;
+
+    }
+
+
+
+    #contact {
+
+      margin-top: 3rem;
+
+      background: var(--card);
+
+      padding: 1rem;
+
+      border-radius: 10px;
+
+    }
+
+
+
+    #contact input, #contact textarea {
+
+      width: 100%;
+
+      padding: 0.8rem;
+
+      margin: 0.5rem 0;
+
+      border: 2px solid var(--highlight);
+
+      border-radius: 10px;
+
+      background: var(--bg);
+
+      color: var(--text);
+
+    }
+
+
+
+    #contact button {
+
+      padding: 0.8rem 2rem;
+
+      background: var(--accent);
+
+      color: white;
+
+      font-weight: bold;
+
+      border: none;
+
+      border-radius: 30px;
+
+      cursor: pointer;
+
+      margin-top: 1rem;
+
+    }
+
+
+
+    .sale-badge {
+
+      position: absolute;
+
+      top: 10px;
+
+      right: 10px;
+
+      background: #ff4757;
+
+      color: white;
+
+      padding: 0.3rem 0.6rem;
+
+      border-radius: 20px;
+
+      font-size: 0.8rem;
+
+      font-weight: bold;
+
+    }
+
+
+
+    /* Checkout Page Styles */
+
+    .checkout-page {
+
+      display: none;
+
+      padding: 2rem;
+
+      background: var(--card);
+
+      border-radius: 15px;
+
+      margin-top: 2rem;
+
+    }
+
+    
+
+    .checkout-steps {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      margin-bottom: 2rem;
+
+    }
+
+    
+
+    .step {
+
+      text-align: center;
+
+      flex: 1;
+
+      position: relative;
+
+    }
+
+    
+
+    .step-number {
+
+      width: 30px;
+
+      height: 30px;
+
+      background: var(--highlight);
+
+      color: white;
+
+      border-radius: 50%;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin-bottom: 0.5rem;
+
+    }
+
+    
+
+    .step.active .step-number {
+
+      background: var(--accent);
+
+    }
+
+    
+
+    .step::after {
+
+      content: '';
+
+      position: absolute;
+
+      top: 15px;
+
+      left: 50%;
+
+      right: -50%;
+
+      height: 2px;
+
+      background: var(--highlight);
+
+      z-index: -1;
+
+    }
+
+    
+
+    .step:last-child::after {
+
+      display: none;
+
+    }
+
+    
+
+    .checkout-form {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 1.5rem;
+
+    }
+
+    
+
+    .checkout-form h3 {
+
+      grid-column: span 2;
+
+      color: var(--accent);
+
+      margin-bottom: 1rem;
+
+    }
+
+    
+
+    .checkout-form label {
+
+      display: block;
+
+      margin-bottom: 0.5rem;
+
+    }
+
+    
+
+    .checkout-form input, 
+
+    .checkout-form select {
+
+      width: 100%;
+
+      padding: 0.8rem;
+
+      border: 2px solid var(--highlight);
+
+      border-radius: 10px;
+
+      background: var(--bg);
+
+      color: var(--text);
+
+    }
+
+    
+
+    .order-summary {
+
+      background: var(--bg);
+
+      padding: 1.5rem;
+
+      border-radius: 10px;
+
+      grid-column: span 2;
+
+    }
+
+    
+
+    .payment-methods {
+
+      grid-column: span 2;
+
+    }
+
+    
+
+    .payment-option {
+
+      display: flex;
+
+      align-items: center;
+
+      margin-bottom: 1rem;
+
+      padding: 1rem;
+
+      background: var(--bg);
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      border: 2px solid transparent;
+
+    }
+
+    
+
+    .payment-option:hover {
+
+      border-color: var(--highlight);
+
+    }
+
+    
+
+    .payment-option input {
+
+      width: auto;
+
+      margin-right: 1rem;
+
+    }
+
+    
+
+    .payment-icon {
+
+      margin-right: 1rem;
+
+      font-size: 1.5rem;
+
+    }
+
+    
+
+    .checkout-buttons {
+
+      grid-column: span 2;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      margin-top: 1rem;
+
+    }
+
+    
+
+    .checkout-buttons button {
+
+      padding: 0.8rem 2rem;
+
+      border: none;
+
+      border-radius: 30px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+    }
+
+    
+
+    .btn-back {
+
+      background: #666;
+
+      color: white;
+
+    }
+
+    
+
+    .btn-next {
+
+      background: var(--accent);
+
+      color: white;
+
+    }
+
+    
+
+    .address-item {
+
+      display: flex;
+
+      align-items: center;
+
+      margin-bottom: 1rem;
+
+      padding: 1rem;
+
+      background: var(--bg);
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      border: 2px solid transparent;
+
+    }
+
+    
+
+    .address-item:hover {
+
+      border-color: var(--highlight);
+
+    }
+
+    
+
+    .address-item input {
+
+      width: auto;
+
+      margin-right: 1rem;
+
+    }
+
+    
+
+    .add-new-address {
+
+      display: block;
+
+      text-align: center;
+
+      padding: 1rem;
+
+      background: var(--bg);
+
+      border-radius: 10px;
+
+      cursor: pointer;
+
+      border: 2px dashed var(--highlight);
+
+    }
+
+    
+
+    .add-new-address:hover {
+
+      background: var(--highlight);
+
+      color: white;
+
+    }
+
+
+
+    #credit-card-form {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 1rem;
+
+      grid-column: span 2;
+
+      margin-top: 1rem;
+
+    }
+
+
+
+    #credit-card-form div {
+
+      grid-column: span 1;
+
+    }
+
+
+
+    #credit-card-form div:first-child {
+
+      grid-column: span 2;
+
+    }
+
+
+
+    /* Updated bKash form styles */
+
+    #bkash-form {
+
+      display: grid;
+
+      grid-template-columns: 1fr;
+
+      gap: 1rem;
+
+      grid-column: span 2;
+
+      margin-top: 1rem;
+
+      padding: 1rem;
+
+      background: var(--bg);
+
+      border-radius: 10px;
+
+    }
+
+
+
+    #bkash-instructions {
+
+      background: rgba(226, 19, 110, 0.1);
+
+      padding: 1rem;
+
+      border-radius: 8px;
+
+      border-left: 4px solid var(--accent);
+
+      margin-bottom: 1rem;
+
+    }
+
+
+
+    #bkash-instructions ol {
+
+      padding-left: 1.5rem;
+
+      margin: 0.5rem 0;
+
+    }
+
+
+
+    #bkash-instructions li {
+
+      margin-bottom: 0.5rem;
+
+    }
+
+
+
+    #bkash-status {
+
+      padding: 1rem;
+
+      border-radius: 8px;
+
+      margin: 1rem 0;
+
+    }
+
+
+
+    .bkash-success {
+
+      background: rgba(46, 125, 50, 0.1);
+
+      border-left: 4px solid #2e7d32;
+
+    }
+
+
+
+    .bkash-error {
+
+      background: rgba(198, 40, 40, 0.1);
+
+      border-left: 4px solid #c62828;
+
+    }
+
+
+
+    .bkash-processing {
+
+      background: rgba(255, 167, 38, 0.1);
+
+      border-left: 4px solid #ffa726;
+
+    }
+
+
+
+    input:invalid, select:invalid {
+
+      border-color: #ff4757 !important;
+
+    }
+
+
+
+    @media (max-width: 600px) {
+
+      nav {
+
+        flex-direction: column;
+
+      }
+
+      
+
+      .products {
+
+        grid-template-columns: 1fr 1fr;
+
+      }
+
+
+
+      .checkout-form,
+
+      #credit-card-form,
+
+      #bkash-form {
+
+        grid-template-columns: 1fr;
+
+      }
+
+
+
+      #credit-card-form div,
+
+      #bkash-form div {
+
+        grid-column: span 1 !important;
+
+      }
+
+    }
+
+
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+<button class="toggle-mode" onclick="toggleDarkMode()">🌓 Mode</button>
+
+
+
+<header>
+
+  <h1>Hena's Collection</h1>
+
+  <p>Affordable Luxury for Beautiful Souls 💖</p>
+
+</header>
+
+
+
+<nav>
+
+  <a href="#cosmetics"><i class="fas fa-makeup-brush"></i> Cosmetics</a>
+
+  <a href="#clothes"><i class="fas fa-tshirt"></i> Clothes</a>
+
+  <a href="#jewellery"><i class="fas fa-gem"></i> Jewellery</a>
+
+  <a href="#cart-section"><i class="fas fa-shopping-cart"></i> Cart (<span id="cart-count">0</span>)</a>
+
+  <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+
+</nav>
+
+
+
+<main>
+
+  <input type="text" id="search-bar" placeholder="🔍 Search products..." oninput="filterProducts()">
+
+
+
+  <h2 class="category-title" id="cosmetics"><i class="fas fa-makeup-brush"></i> Cosmetics</h2>
+
+  <div class="products" id="cosmetics-section"></div>
+
+
+
+  <h2 class="category-title" id="clothes"><i class="fas fa-tshirt"></i> Clothes</h2>
+
+  <div class="products" id="clothes-section"></div>
+
+
+
+  <h2 class="category-title" id="jewellery"><i class="fas fa-gem"></i> Jewellery</h2>
+
+  <div class="products" id="jewellery-section"></div>
+
+
+
+  <section id="cart-section">
+
+    <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total" id="cart-total"></div>
+
+    <button onclick="showCheckout()" style="width: 100%;">Proceed to Checkout</button>
+
+  </section>
+
+
+
+  <!-- Checkout Page -->
+
+  <section id="checkout-page" class="checkout-page">
+
+    <div class="checkout-steps">
+
+      <div class="step active" id="step1">
+
+        <div class="step-number">1</div>
+
+        <div>Shipping</div>
+
+      </div>
+
+      <div class="step" id="step2">
+
+        <div class="step-number">2</div>
+
+        <div>Payment</div>
+
+      </div>
+
+      <div class="step" id="step3">
+
+        <div class="step-number">3</div>
+
+        <div>Confirmation</div>
+
+      </div>
+
+    </div>
+
+    
+
+    <!-- Shipping Step -->
+
+    <div id="shipping-step">
+
+      <div class="checkout-form">
+
+        <h3>Shipping Information</h3>
+
+        
+
+        <div>
+
+          <label for="full-name">Full Name</label>
+
+          <input type="text" id="full-name" required>
+
+        </div>
+
+        
+
+        <div>
+
+          <label for="phone">Phone Number</label>
+
+          <input type="tel" id="phone" required>
+
+        </div>
+
+        
+
+        <div>
+
+          <label for="address">Address</label>
+
+          <input type="text" id="address" required>
+
+        </div>
+
+        
+
+        <div>
+
+          <label for="city">City</label>
+
+          <input type="text" id="city" required>
+
+        </div>
+
+        
+
+        <div>
+
+          <label for="zip">ZIP Code</label>
+
+          <input type="text" id="zip" required>
+
+        </div>
+
+        
+
+        <div>
+
+          <label for="country">Country</label>
+
+          <select id="country" required>
+
+            <option value="">Select Country</option>
+
+            <option value="BD">Bangladesh</option>
+
+            <option value="US">United States</option>
+
+            <option value="UK">United Kingdom</option>
+
+            <option value="IN">India</option>
+
+          </select>
+
+        </div>
+
+        
+
+        <div class="order-summary">
+
+          <h4>Order Summary</h4>
+
+          <div id="checkout-items"></div>
+
+          <div class="cart-total" id="checkout-total"></div>
+
+        </div>
+
+        
+
+        <div class="checkout-buttons">
+
+          <button class="btn-back" onclick="hideCheckout()">Back to Cart</button>
+
+          <button class="btn-next" onclick="nextStep(2)">Continue to Payment</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    
+
+    <!-- Payment Step -->
+
+    <div id="payment-step" style="display: none;">
+
+      <div class="checkout-form">
+
+        <h3>Payment Method</h3>
+
+        
+
+        <div class="payment-methods">
+
+          <div class="payment-option" onclick="selectPayment(this)">
+
+            <input type="radio" name="payment" id="credit-card" checked>
+
+            <i class="payment-icon fas fa-credit-card"></i>
+
+            <div>
+
+              <label for="credit-card">Credit/Debit Card</label>
+
+              <p>Pay with Visa, Mastercard, or American Express</p>
+
+            </div>
+
+          </div>
+
+          
+
+          <div class="payment-option" onclick="selectPayment(this)">
+
+            <input type="radio" name="payment" id="bKash">
+
+            <i class="payment-icon fas fa-mobile-alt"></i>
+
+            <div>
+
+              <label for="bKash">bKash</label>
+
+              <p>Pay using your bKash mobile wallet</p>
+
+            </div>
+
+          </div>
+
+          
+
+          <div class="payment-option" onclick="selectPayment(this)">
+
+            <input type="radio" name="payment" id="cod">
+
+            <i class="payment-icon fas fa-money-bill-wave"></i>
+
+            <div>
+
+              <label for="cod">Cash on Delivery</label>
+
+              <p>Pay when you receive your order</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Credit Card Form (shown when credit card is selected) -->
+
+        <div id="credit-card-form">
+
+          <div>
+
+            <label for="card-number">Card Number</label>
+
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+
+          </div>
+
+          
+
+          <div>
+
+            <label for="card-name">Name on Card</label>
+
+            <input type="text" id="card-name" required>
+
+          </div>
+
+          
+
+          <div>
+
+            <label for="expiry">Expiry Date</label>
+
+            <input type="text" id="expiry" placeholder="MM/YY" required>
+
+          </div>
+
+          
+
+          <div>
+
+            <label for="cvv">CVV</label>
+
+            <input type="text" id="cvv" placeholder="123" required>
+
+          </div>
+
+        </div>
+
+        
+
+        <!-- Updated bKash Form -->
+
+        <div id="bkash-form" style="display: none;">
+
+          <div id="bkash-instructions">
+
+            <h4>How to pay with bKash:</h4>
+
+            <ol>
+
+              <li>Open your bKash mobile app</li>
+
+              <li>Go to "Payment" section</li>
+
+              <li>Enter Merchant Number: <strong>01770618575</strong></li>
+
+              <li>Enter Amount: <strong id="bkash-amount">0</strong> BDT</li>
+
+              <li>Enter Reference: <strong id="bkash-reference">HENA-1234</strong></li>
+
+              <li>Complete the payment</li>
+
+            </ol>
+
+            <p><em>Note: This is a simulation. No real payment will be processed.</em></p>
+
+          </div>
+
+          
+
+          <div>
+
+            <label for="bkash-number">Your bKash Number*</label>
+
+            <input type="tel" id="bkash-number" placeholder="01XXXXXXXXX" required 
+
+                   pattern="01[3-9]{1}[0-9]{8}">
+
+            <small>Must be a valid Bangladeshi mobile number (e.g. 017XXXXXXXX)</small>
+
+          </div>
+
+          
+
+          <div>
+
+            <label for="bkash-trx">bKash Transaction ID (TrxID)*</label>
+
+            <input type="text" id="bkash-trx" placeholder="TRX123456789" required>
+
+            <small>Found in your bKash payment receipt</small>
+
+          </div>
+
+          
+
+          <div id="bkash-status"></div>
+
+          
+
+          <button onclick="verifyBkashPayment()" 
+
+                  style="background: #e2136e; color: white; border: none; padding: 12px; 
+
+                         width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold;">
+
+            <i class="fas fa-check-circle"></i> Verify Payment
+
+          </button>
+
+        </div>
+
+        
+
+        <div class="order-summary">
+
+          <h4>Order Summary</h4>
+
+          <div id="payment-items"></div>
+
+          <div class="cart-total" id="payment-total"></div>
+
+        </div>
+
+        
+
+        <div class="checkout-buttons">
+
+          <button class="btn-back" onclick="prevStep(1)">Back to Shipping</button>
+
+          <button class="btn-next" onclick="nextStep(3)">Place Order</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    
+
+    <!-- Confirmation Step -->
+
+    <div id="confirmation-step" style="display: none;">
+
+      <div style="text-align: center; padding: 2rem;">
+
+        <i class="fas fa-check-circle" style="font-size: 5rem; color: #4CAF50; margin-bottom: 1rem;"></i>
+
+        <h2>Order Confirmed!</h2>
+
+        <p>Thank you for your purchase. Your order has been placed successfully.</p>
+
+        <p>Order ID: <strong id="order-id">HENA-${Math.floor(Math.random() * 1000000)}</strong></p>
+
+        <p>We'll send you a confirmation email shortly.</p>
+
+        <button class="btn-next" onclick="completeCheckout()" style="margin-top: 2rem;">Continue Shopping</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <section id="contact">
+
+    <h2><i class="fas fa-envelope"></i> Contact Us</h2>
+
+    <form onsubmit="sendMessage(event)">
+
+      <input type="text" placeholder="Your Name" required />
+
+      <input type="email" placeholder="Your Email" required />
+
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
+
+    </form>
+
+  </section>
+
+</main>
+
+
+
+<footer>
+
+  <p>&copy; 2025 Hena's Collection 💖 All rights reserved.</p>
+
+  <div style="margin-top: 1rem;">
+
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-facebook"></i></a>
+
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+
+    <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-whatsapp"></i></a>
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+  const products = [
+
+    { 
+
+      id: 1, 
+
+      name: "Matte Lipstick Set", 
+
+      category: "cosmetics", 
+
+      price: 1599, 
+
+      originalPrice: 1999,
+
+      image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bGlwc3RpY2t8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 2, 
+
+      name: "Liquid Foundation", 
+
+      category: "cosmetics", 
+
+      price: 2550, 
+
+      originalPrice: 2999,
+
+      image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm91bmRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 3, 
+
+      name: "Elegant Satin Dress", 
+
+      category: "clothes", 
+
+      price: 8999, 
+
+      originalPrice: 10999,
+
+      image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGRyZXNzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 4, 
+
+      name: "Stylish Leather Jacket", 
+
+      category: "clothes", 
+
+      price: 14999, 
+
+      originalPrice: 17999,
+
+      image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8amFja2V0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 5, 
+
+      name: "Gold Plated Necklace", 
+
+      category: "jewellery", 
+
+      price: 19999, 
+
+      originalPrice: 24999,
+
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z29sZCUyMG5lY2tsYWNlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 6, 
+
+      name: "Diamond Stud Earrings", 
+
+      category: "jewellery", 
+
+      price: 39999, 
+
+      originalPrice: 49999,
+
+      image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWFycmluZ3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 7, 
+
+      name: "Eyeshadow Palette", 
+
+      category: "cosmetics", 
+
+      price: 1299, 
+
+      originalPrice: 1599,
+
+      image: "https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZXllc2hhZG93fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
+
+    },
+
+    { 
+
+      id: 8, 
+
+      name: "Summer Floral Dress", 
+
+      category: "clothes", 
+
+      price: 5999, 
+
+      originalPrice: 7999,
+
+      image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb595d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZHJlc3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
+
+    }
+
+  ];
+
+
+
+  // bKash payment simulation variables
+
+  let bkashPaymentVerified = false;
+
+  let currentOrderId = '';
+
+
+
+  function renderProducts() {
+
+    document.querySelectorAll('.products').forEach(e => e.innerHTML = '');
+
+    products.forEach(p => {
+
+      const card = document.createElement('div');
+
+      card.className = 'product';
+
+      card.dataset.name = p.name.toLowerCase();
+
+      
+
+      const discount = p.originalPrice ? Math.round(100 - (p.price / p.originalPrice * 100)) : 0;
+
+      
+
+      card.innerHTML = `
+
+        ${discount > 0 ? `<div class="sale-badge">${discount}% OFF</div>` : ''}
+
+        <img src="${p.image}" alt="${p.name}">
+
+        <h3>${p.name}</h3>
+
+        <p>৳${p.price.toFixed(2)} ${p.originalPrice ? `<del style="color: #aaa; font-size: 0.9em;">৳${p.originalPrice.toFixed(2)}</del>` : ''}</p>
+
+        <button onclick="addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Add to Cart</button>`;
+
+      
+
+      document.getElementById(`${p.category}-section`).appendChild(card);
+
+    });
+
+  }
+
+
+
+  function addToCart(id) {
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const item = cart.find(p => p.id === id);
+
+    if (item) item.qty += 1;
+
+    else {
+
+      const product = products.find(p => p.id === id);
+
+      cart.push({ ...product, qty: 1 });
+
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    updateCartDisplay();
+
+    updateCartCount();
+
+    
+
+    // Show added to cart notification
+
+    const notification = document.createElement('div');
+
+    notification.style.position = 'fixed';
+
+    notification.style.bottom = '20px';
+
+    notification.style.right = '20px';
+
+    notification.style.backgroundColor = 'var(--accent)';
+
+    notification.style.color = 'white';
+
+    notification.style.padding = '10px 20px';
+
+    notification.style.borderRadius = '5px';
+
+    notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+
+    notification.style.zIndex = '1000';
+
+    notification.innerHTML = 'Item added to cart! <i class="fas fa-check"></i>';
+
+    document.body.appendChild(notification);
+
+    
+
+    setTimeout(() => {
+
+      notification.style.opacity = '0';
+
+      notification.style.transition = 'opacity 0.5s';
+
+      setTimeout(() => notification.remove(), 500);
+
+    }, 2000);
+
+  }
+
+
+
+  function updateCartDisplay() {
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const cartItemsDiv = document.getElementById('cart-items');
+
+    const cartTotalDiv = document.getElementById('cart-total');
+
+    cartItemsDiv.innerHTML = '';
+
+    
+
+    if (cart.length === 0) {
+
+      cartItemsDiv.innerHTML = '<p>Your cart is empty</p>';
+
+      cartTotalDiv.innerHTML = '';
+
+      return;
+
+    }
+
+    
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+      total += item.price * item.qty;
+
+      cartItemsDiv.innerHTML += 
+
+        `<div class="cart-item">
+
+          <span>${item.name}</span>
+
+          <div class="qty-control">
+
+            <button onclick="changeQty(${item.id}, -1)">-</button>
+
+            <span>${item.qty}</span>
+
+            <button onclick="changeQty(${item.id}, 1)">+</button>
+
+          </div>
+
+          <span>৳${(item.price * item.qty).toFixed(2)}</span>
+
+        </div>`;
+
+    });
+
+    cartTotalDiv.innerHTML = `Total: ৳${total.toFixed(2)}`;
+
+  }
+
+
+
+  function changeQty(id, delta) {
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const itemIndex = cart.findIndex(p => p.id === id);
+
+    if (itemIndex !== -1) {
+
+      cart[itemIndex].qty += delta;
+
+      if (cart[itemIndex].qty <= 0) cart.splice(itemIndex, 1);
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      updateCartDisplay();
+
+      updateCartCount();
+
+    }
+
+  }
+
+
+
+  function updateCartCount() {
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const count = cart.reduce((acc, item) => acc + item.qty, 0);
+
+    document.getElementById('cart-count').innerText = count;
+
+  }
+
+
+
+  function filterProducts() {
+
+    const query = document.getElementById('search-bar').value.toLowerCase();
+
+    document.querySelectorAll('.product').forEach(p => {
+
+      const productName = p.dataset.name;
+
+      p.style.display = productName.includes(query) ? 'block' : 'none';
+
+    });
+
+  }
+
+
+
+  function toggleDarkMode() {
+
+    const root = document.documentElement;
+
+    const currentBg = getComputedStyle(root).getPropertyValue('--bg');
+
+    if (currentBg.trim() === '#2e2e2e') {
+
+      root.style.setProperty('--bg', '#f4f4f4');
+
+      root.style.setProperty('--text', '#333');
+
+      root.style.setProperty('--card', '#fff');
+
+      root.style.setProperty('--highlight', '#ffb6c1');
+
+    } else {
+
+      root.style.setProperty('--bg', '#2e2e2e');
+
+      root.style.setProperty('--text', '#ffffff');
+
+      root.style.setProperty('--card', '#444');
+
+      root.style.setProperty('--highlight', '#d87093');
+
+    }
+
+  }
+
+
+
+  // Checkout Functions
+
+  function showCheckout() {
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+
+      alert('Your cart is empty!');
+
+      return;
+
+    }
+
+    
+
+    document.getElementById('cart-section').style.display = 'none';
+
+    document.getElementById('checkout-page').style.display = 'block';
+
+    updateCheckoutDisplay();
+
+    
+
+    // Generate a new order ID
+
+    currentOrderId = 'HENA-' + Math.floor(10000 + Math.random() * 90000);
+
+    document.getElementById('order-id').textContent = currentOrderId;
+
+  }
+
+  
+
+  function hideCheckout() {
+
+    document.getElementById('checkout-page').style.display = 'none';
+
+    document.getElementById('cart-section').style.display = 'block';
+
+    bkashPaymentVerified = false;
+
+  }
+
+  
+
+  function updateCheckoutDisplay() {
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const checkoutItemsDiv = document.getElementById('checkout-items');
+
+    const checkoutTotalDiv = document.getElementById('checkout-total');
+
+    const paymentItemsDiv = document.getElementById('payment-items');
+
+    const paymentTotalDiv = document.getElementById('payment-total');
+
+    
+
+    checkoutItemsDiv.innerHTML = '';
+
+    paymentItemsDiv.innerHTML = '';
+
+    
+
+    if (cart.length === 0) {
+
+      checkoutItemsDiv.innerHTML = '<p>Your cart is empty</p>';
+
+      checkoutTotalDiv.innerHTML = '';
+
+      paymentItemsDiv.innerHTML = '<p>Your cart is empty</p>';
+
+      paymentTotalDiv.innerHTML = '';
+
+      return;
+
+    }
+
+    
+
+    let total = 0;
+
+    cart.forEach(item => {
+
+      total += item.price * item.qty;
+
+      checkoutItemsDiv.innerHTML += 
+
+        `<div class="cart-item">
+
+          <span>${item.name} × ${item.qty}</span>
+
+          <span>৳${(item.price * item.qty).toFixed(2)}</span>
+
+        </div>`;
+
+        
+
+      paymentItemsDiv.innerHTML += 
+
+        `<div class="cart-item">
+
+          <span>${item.name} × ${item.qty}</span>
+
+          <span>৳${(item.price * item.qty).toFixed(2)}</span>
+
+        </div>`;
+
+    });
+
+    
+
+    checkoutTotalDiv.innerHTML = `Total: ৳${total.toFixed(2)}`;
+
+    paymentTotalDiv.innerHTML = `Total: ৳${total.toFixed(2)}`;
+
+    
+
+    // Update bKash amount display
+
+    document.getElementById('bkash-amount').textContent = total.toFixed(2);
+
+    document.getElementById('bkash-reference').textContent = currentOrderId;
+
+  }
+
+  
+
+  function nextStep(step) {
+
+    // Hide all steps
+
+    document.getElementById('shipping-step').style.display = 'none';
+
+    document.getElementById('payment-step').style.display = 'none';
+
+    document.getElementById('confirmation-step').style.display = 'none';
+
+    
+
+    // Remove active class from all steps
+
+    document.getElementById('step1').classList.remove('active');
+
+    document.getElementById('step2').classList.remove('active');
+
+    document.getElementById('step3').classList.remove('active');
+
+    
+
+    // Show current step and mark as active
+
+    if (step === 2) {
+
+        // Validate shipping form before proceeding
+
+        const shippingFields = document.querySelectorAll('#shipping-step input, #shipping-step select');
+
+        let isValid = true;
+
+        
+
+        shippingFields.forEach(field => {
+
+            if (!field.value) {
+
+                field.style.borderColor = 'red';
+
+                isValid = false;
+
+            } else {
+
+                field.style.borderColor = '';
+
+            }
+
+        });
+
+        
+
+        if (!isValid) {
+
+            // Focus on first invalid field
+
+            const firstInvalid = Array.from(shippingFields).find(field => !field.value);
+
+            if (firstInvalid) firstInvalid.focus();
+
+            
+
+            alert('Please fill all shipping information');
+
+            document.getElementById('shipping-step').style.display = 'block';
+
+            document.getElementById('step1').classList.add('active');
+
+            return;
+
+        }
+
+        
+
+        document.getElementById('payment-step').style.display = 'block';
+
+        document.getElementById('step2').classList.add('active');
+
+        
+
+        // Initialize payment method display
+
+        selectPayment(document.querySelector('.payment-option'));
+
+    } else if (step === 3) {
+
+        // Validate payment method before proceeding
+
+        const paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+        if (!paymentMethod) {
+
+            alert('Please select a payment method');
+
+            document.getElementById('payment-step').style.display = 'block';
+
+            document.getElementById('step2').classList.add('active');
+
+            return;
+
+        }
+
+        
+
+        if (paymentMethod.id === 'credit-card') {
+
+            // Validate credit card form
+
+            const cardNumber = document.getElementById('card-number').value;
+
+            const cardName = document.getElementById('card-name').value;
+
+            const expiry = document.getElementById('expiry').value;
+
+            const cvv = document.getElementById('cvv').value;
+
+            
+
+            if (!cardNumber || !cardName || !expiry || !cvv) {
+
+                alert('Please fill all credit card details');
+
+                document.getElementById('payment-step').style.display = 'block';
+
+                document.getElementById('step2').classList.add('active');
+
+                return;
+
+            }
+
+        } else if (paymentMethod.id === 'bKash') {
+
+            // Check if bKash payment was verified
+
+            if (!bkashPaymentVerified) {
+
+                alert('Please verify your bKash payment first');
+
+                return;
+
+            }
+
+        }
+
+        
+
+        document.getElementById('confirmation-step').style.display = 'block';
+
+        document.getElementById('step3').classList.add('active');
+
+    }
+
+  }
+
+  
+
+  function prevStep(step) {
+
+    // Hide all steps
+
+    document.getElementById('shipping-step').style.display = 'none';
+
+    document.getElementById('payment-step').style.display = 'none';
+
+    document.getElementById('confirmation-step').style.display = 'none';
+
+    
+
+    // Remove active class from all steps
+
+    document.getElementById('step1').classList.remove('active');
+
+    document.getElementById('step2').classList.remove('active');
+
+    document.getElementById('step3').classList.remove('active');
+
+    
+
+    // Show previous step and mark as active
+
+    if (step === 1) {
+
+      document.getElementById('shipping-step').style.display = 'block';
+
+      document.getElementById('step1').classList.add('active');
+
+    }
+
+  }
+
+  
+
+  function selectPayment(element) {
+
+    // Uncheck all payment options
+
+    document.querySelectorAll('.payment-option input').forEach(radio => {
+
+      radio.checked = false;
+
+    });
+
+    
+
+    // Check the selected one
+
+    const radio = element.querySelector('input');
+
+    radio.checked = true;
+
+    
+
+    // Show/hide payment forms
+
+    document.getElementById('credit-card-form').style.display = 'none';
+
+    document.getElementById('bkash-form').style.display = 'none';
+
+    
+
+    if (radio.id === 'credit-card') {
+
+      document.getElementById('credit-card-form').style.display = 'grid';
+
+    } else if (radio.id === 'bKash') {
+
+      document.getElementById('bkash-form').style.display = 'grid';
+
+      bkashPaymentVerified = false;
+
+    }
+
+  }
+
+  
+
+  // bKash Payment Verification Function
+
+  function verifyBkashPayment() {
+
+    const bkashNumber = document.getElementById('bkash-number').value;
+
+    const bkashTrx = document.getElementById('bkash-trx').value;
+
+    const statusDiv = document.getElementById('bkash-status');
+
+    
+
+    // Simple validation
+
+    if (!bkashNumber || !/^01[3-9]\d{8}$/.test(bkashNumber)) {
+
+      statusDiv.innerHTML = '<p style="color: red;">Please enter a valid bKash mobile number</p>';
+
+      statusDiv.className = 'bkash-error';
+
+      return;
+
+    }
+
+    
+
+    if (!bkashTrx || !/^[a-zA-Z0-9]{8,12}$/.test(bkashTrx)) {
+
+      statusDiv.innerHTML = '<p style="color: red;">Please enter a valid Transaction ID</p>';
+
+      statusDiv.className = 'bkash-error';
+
+      return;
+
+    }
+
+    
+
+    // Show processing status
+
+    statusDiv.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Verifying payment with bKash...</p>';
+
+    statusDiv.className = 'bkash-processing';
+
+    
+
+    // Simulate API call delay (2 seconds)
+
+    setTimeout(() => {
+
+      // For demo purposes, we'll randomly decide if payment was successful (80% chance)
+
+      const isSuccess = Math.random() > 0.2;
+
+      
+
+      if (isSuccess) {
+
+        statusDiv.innerHTML = `
+
+          <p><i class="fas fa-check-circle"></i> <strong>Payment Verified Successfully!</strong></p>
+
+          <p>Transaction ID: ${bkashTrx}</p>
+
+          <p>Amount: ${document.getElementById('bkash-amount').textContent} BDT</p>
+
+        `;
+
+        statusDiv.className = 'bkash-success';
+
+        bkashPaymentVerified = true;
+
+      } else {
+
+        statusDiv.innerHTML = `
+
+          <p><i class="fas fa-exclamation-circle"></i> <strong>Payment Verification Failed</strong></p>
+
+          <p>Could not verify transaction. Please check your Transaction ID and try again.</p>
+
+        `;
+
+        statusDiv.className = 'bkash-error';
+
+        bkashPaymentVerified = false;
+
+      }
+
+    }, 2000);
+
+  }
+
+  
+
+  function completeCheckout() {
+
+    // Clear cart
+
+    localStorage.removeItem('cart');
+
+    
+
+    // Hide checkout and show main page
+
+    document.getElementById('checkout-page').style.display = 'none';
+
+    document.getElementById('cart-section').style.display = 'block';
+
+    
+
+    // Update cart count
+
+    updateCartCount();
+
+    updateCartDisplay();
+
+    
+
+    // Reset checkout steps
+
+    document.getElementById('shipping-step').style.display = 'block';
+
+    document.getElementById('payment-step').style.display = 'none';
+
+    document.getElementById('confirmation-step').style.display = 'none';
+
+    document.getElementById('step1').classList.add('active');
+
+    document.getElementById('step2').classList.remove('active');
+
+    document.getElementById('step3').classList.remove('active');
+
+    
+
+    // Reset forms
+
+    document.querySelectorAll('#shipping-step input, #shipping-step select').forEach(field => {
+
+      field.value = '';
+
+    });
+
+    
+
+    document.querySelectorAll('#payment-step input').forEach(field => {
+
+      field.value = '';
+
+    });
+
+    
+
+    // Reset bKash status
+
+    document.getElementById('bkash-status').innerHTML = '';
+
+    document.getElementById('bkash-status').className = '';
+
+    bkashPaymentVerified = false;
+
+    
+
+    // Show order confirmation notification
+
+    const notification = document.createElement('div');
+
+    notification.style.position = 'fixed';
+
+    notification.style.bottom = '20px';
+
+    notification.style.right = '20px';
+
+    notification.style.backgroundColor = '#4CAF50';
+
+    notification.style.color = 'white';
+
+    notification.style.padding = '10px 20px';
+
+    notification.style.borderRadius = '5px';
+
+    notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+
+    notification.style.zIndex = '1000';
+
+    notification.innerHTML = `Order #${currentOrderId} confirmed! <i class="fas fa-check"></i>`;
+
+    document.body.appendChild(notification);
+
+    
+
+    setTimeout(() => {
+
+      notification.style.opacity = '0';
+
+      notification.style.transition = 'opacity 0.5s';
+
+      setTimeout(() => notification.remove(), 500);
+
+    }, 3000);
+
+  }
+
+
+
+  function sendMessage(event) {
+
+    event.preventDefault();
+
+    alert('Message sent! We will contact you soon.');
+
+    event.target.reset();
+
+  }
+
+
+
+  window.onload = () => {
+
+    renderProducts();
+
+    updateCartDisplay();
+
+    updateCartCount();
+
+  };
+
+</script>
+
+
+
+</body>
+
+</html>
